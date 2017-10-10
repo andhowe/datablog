@@ -1,0 +1,33 @@
+---
+title: Timespace Example
+author: Andrew Howe
+date: '2017-10-10'
+slug: timespace-example
+categories: []
+tags: []
+---
+
+
+
+<pre class="r"><code>library(sqldf)</code></pre>
+<pre><code>## Loading required package: gsubfn</code></pre>
+<pre><code>## Loading required package: proto</code></pre>
+<pre><code>## Loading required package: RSQLite</code></pre>
+<pre class="r"><code>library(Lahman)
+library(ggplot2)</code></pre>
+<pre class="r"><code># extracting the data------------------
+
+query&lt;-&quot;SELECT yearID,HR
+FROM Batting
+WHERE playerID=&#39;ruthba01&#39;&quot;
+
+result&lt;-sqldf(query)
+
+# visualizing the data-----------------
+
+ggplot()+
+  geom_line(data=result,aes(x=yearID,y=HR))+
+  ggtitle(&quot;Ruth&#39;s Homerun Totals Through the Years&quot;)+
+  xlab(&quot;year&quot;)+
+  ylab(&quot;homeruns&quot;)</code></pre>
+<p><img src="/post/2017-10-10-timespace-example_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>

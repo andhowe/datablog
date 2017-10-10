@@ -1,0 +1,33 @@
+---
+title: Timespace Example
+author: Andrew Howe
+date: '2017-10-10'
+slug: timespace-example
+categories: []
+tags: []
+---
+
+```{r}
+library(sqldf)
+library(Lahman)
+library(ggplot2)
+```
+
+```{r}
+# extracting the data------------------
+
+query<-"SELECT yearID,HR
+FROM Batting
+WHERE playerID='ruthba01'"
+
+result<-sqldf(query)
+
+# visualizing the data-----------------
+
+ggplot()+
+  geom_line(data=result,aes(x=yearID,y=HR))+
+  ggtitle("Ruth's Homerun Totals Through the Years")+
+  xlab("year")+
+  ylab("homeruns")
+```
+

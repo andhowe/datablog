@@ -1,0 +1,36 @@
+---
+title: Barplot Example
+author: Andrew Howe
+date: '2017-10-10'
+slug: barplot-example
+categories: []
+tags: []
+---
+
+
+
+<pre class="r"><code>library(sqldf)</code></pre>
+<pre><code>## Loading required package: gsubfn</code></pre>
+<pre><code>## Loading required package: proto</code></pre>
+<pre><code>## Loading required package: RSQLite</code></pre>
+<pre class="r"><code>library(Lahman)
+library(ggplot2)</code></pre>
+<pre class="r"><code>#extracting the data------------------------
+
+query&lt;-&quot;SELECT name,HR
+FROM Teams
+WHERE yearID=1980
+ORDER BY HR&quot;
+
+result&lt;-sqldf(query)
+
+#visualizing the data-----------------------
+
+ggplot()+
+  geom_bar(data=result,aes(x=name,y=HR),stat=&#39;identity&#39;,color=&#39;blue&#39;,fill=&#39;white&#39;)+
+  coord_flip()+
+  ylab(&#39;homeruns&#39;)+
+  xlab(&#39;team&#39;)+
+  ggtitle(&#39;1980 Team Homerun Distribution&#39;)</code></pre>
+<p><img src="/post/2017-10-10-barplot-example_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>result$name&lt;-factor(result$name,levels=result$name)</code></pre>
